@@ -1,0 +1,14 @@
+pub mod activate;
+pub mod alias;
+pub mod clean;
+pub mod completions;
+pub mod deactivate;
+pub mod doctor;
+pub mod exec;
+pub mod info;
+pub mod install;
+pub mod list;
+pub mod registry;
+pub mod uninstall;
+pub mod upgrade;
+pub mod use_version;
