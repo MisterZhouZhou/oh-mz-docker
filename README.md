@@ -10,7 +10,7 @@
 ### 构建镜像
 ```shell
   # -t 指定镜像名称, .表示Dockerfile所在目录
-  docker build -f Dockerfile -t oh-mz-docker .
+  docker build -f Dockerfile -t oh-mz-docker-linux .
 ```
 ### 使用示例
 https://github.com/MisterZhouZhou/oh-mz-dev
