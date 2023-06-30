@@ -10,7 +10,7 @@ ADD mirrorlist /etc/pacman.d/mirrorlist
 RUN yes | pacman -Syu
 RUN yes | pacman -S git zsh which vim curl tree htop
 RUN mkdir -p /root/.config
-VOLUME [ "/root/.config", "/root/repos", "/root/.vscode-server/extensions", "/root/go/bin", "/var/lib/docker", "/root/.local/share/pnpm", "/root/.ssh", "/root/.dvm/bin" ]
+VOLUME [ "/root/.config", "/root/repos", "/root/.vscode-server/extensions", "/root/go/bin", "/var/lib/docker", "/root/.local/share/pnpm", "/root/.ssh", "/root/.dvm/bin", "/root/.cargo/bin" ]
 # end
 
 # z
@@ -89,11 +89,11 @@ ENV PATH $RUST_DIR/bin:$PATH
 # end
 
 # dvm, 依赖unzip (deno1.34.3安装报错)
-# ENV DVM_DIR /root/.dvm
-# ENV PATH $DVM_DIR/bin:$PATH
-# ADD dvm-1.8.6 /root/.dvm/
-# RUN yes | pacman -S unzip
-# RUN sh ${DVM_DIR}/install.sh 
+ENV DVM_DIR /root/.dvm
+ENV PATH $DVM_DIR/bin:$PATH
+ADD dvm-1.8.6 /root/.dvm/
+RUN yes | pacman -S unzip
+RUN sh ${DVM_DIR}/install.sh 
 
 # RUN yes | pacman -S unzip
 # RUN yes | curl -fsSL https://deno.land/x/dvm/install.sh | sh
