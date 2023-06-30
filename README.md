@@ -2,7 +2,7 @@
 参考FrankFang大佬构建的docker linux开发环境
 
 ## 容器功能
-内置 git / vim / python3 / zsh / go / node / yarn / pnpm / ruby3 / rails / deno  等命令
+内置 git / vim / python3 / zsh / go / node / yarn / pnpm / deno / rust 等命令
 给国内用户配置了加速镜像
 
 ## 使用方法

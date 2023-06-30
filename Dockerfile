@@ -24,30 +24,30 @@ RUN zsh -c 'git clone https://code.aliyun.com/412244196/prezto.git "$HOME/.zprez
 ENV SHELL /bin/zsh
 # end
 
-# Ruby
-ENV LANG=C.UTF-8
-ADD rvm-rvm-1.29.12-0-g6bfc921.tar.gz /tmp/rvm-stable.tar.gz
-ENV PATH /usr/local/rvm/rubies/ruby-3.0.0/bin:$PATH
-ENV PATH /usr/local/rvm/gems/ruby-3.0.0/bin:$PATH
-ENV PATH /usr/local/rvm/bin:$PATH
-ENV GEM_HOME /usr/local/rvm/gems/ruby-3.0.0
-ENV GEM_PATH /usr/local/rvm/gems/ruby-3.0.0:/usr/local/rvm/gems/ruby-3.0.0@global
+# # Ruby
+# ENV LANG=C.UTF-8
+# ADD rvm-rvm-1.29.12-0-g6bfc921.tar.gz /tmp/rvm-stable.tar.gz
+# ENV PATH /usr/local/rvm/rubies/ruby-3.0.0/bin:$PATH
+# ENV PATH /usr/local/rvm/gems/ruby-3.0.0/bin:$PATH
+# ENV PATH /usr/local/rvm/bin:$PATH
+# ENV GEM_HOME /usr/local/rvm/gems/ruby-3.0.0
+# ENV GEM_PATH /usr/local/rvm/gems/ruby-3.0.0:/usr/local/rvm/gems/ruby-3.0.0@global
 
-RUN touch /root/.config/.gemrc; ln -s /root/.config/.gemrc /root/.gemrc;
-RUN mv /tmp/rvm-stable.tar.gz/rvm-rvm-6bfc921 /tmp/rvm && cd /tmp/rvm && ./install --auto-dotfiles &&\
-		echo "ruby_url=https://cache.ruby-china.com/pub/ruby" > /usr/local/rvm/user/db &&\
-		echo 'gem: --no-document --verbose' >> "$HOME/.gemrc"
-RUN yes | pacman -S gcc make
-ADD openssl-1.1.1q.tar.gz /tmp/openssl
-RUN cd /tmp/openssl/openssl-1.1.1q &&\
-  ./config --prefix=/usr/local/openssl &&\
-  make && make install &&\
-  rm -rf /usr/local/openssl/ssl/certs && ln -s /etc/ssl/certs /usr/local/openssl/ssl/certs
-RUN echo "rvm_silence_path_mismatch_check_flag=1" > /root/.rvmrc &&\
-  rvm install ruby-3.0.0 --with-openssl-dir=/usr/local/openssl
-RUN gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/ &&\
-  gem install solargraph rubocop rufo
-# end
+# RUN touch /root/.config/.gemrc; ln -s /root/.config/.gemrc /root/.gemrc;
+# RUN mv /tmp/rvm-stable.tar.gz/rvm-rvm-6bfc921 /tmp/rvm && cd /tmp/rvm && ./install --auto-dotfiles &&\
+# 		echo "ruby_url=https://cache.ruby-china.com/pub/ruby" > /usr/local/rvm/user/db &&\
+# 		echo 'gem: --no-document --verbose' >> "$HOME/.gemrc"
+# RUN yes | pacman -S gcc make
+# ADD openssl-1.1.1q.tar.gz /tmp/openssl
+# RUN cd /tmp/openssl/openssl-1.1.1q &&\
+#   ./config --prefix=/usr/local/openssl &&\
+#   make && make install &&\
+#   rm -rf /usr/local/openssl/ssl/certs && ln -s /etc/ssl/certs /usr/local/openssl/ssl/certs
+# RUN echo "rvm_silence_path_mismatch_check_flag=1" > /root/.rvmrc &&\
+#   rvm install ruby-3.0.0 --with-openssl-dir=/usr/local/openssl
+# RUN gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/ &&\
+#   gem install solargraph rubocop rufo
+# # end
 
 # Install Go
 RUN yes | pacman -S go
@@ -82,12 +82,21 @@ RUN sh ${NVM_DIR}/nvm.sh &&\
 	echo '[ -s "${NVM_DIR}/bash_completion" ] && { source "${NVM_DIR}/bash_completion" } ' >> /root/.zshrc
 # end
 
-# dvm, 依赖unzip
-ENV DVM_DIR /root/.dvm
-ENV PATH $DVM_DIR/bin:$PATH
-ADD dvm-1.8.6 /root/.dvm/
-RUN yes | pacman -S unzip
-RUN sh ${DVM_DIR}/install.sh 
+# rust
+RUN yes | curl https://sh.rustup.rs -sSf | bash -s -- -y
+ENV RUST_DIR /root/.cargo
+ENV PATH $RUST_DIR/bin:$PATH
+# end
+
+# dvm, 依赖unzip (deno1.34.3安装报错)
+# ENV DVM_DIR /root/.dvm
+# ENV PATH $DVM_DIR/bin:$PATH
+# ADD dvm-1.8.6 /root/.dvm/
+# RUN yes | pacman -S unzip
+# RUN sh ${DVM_DIR}/install.sh 
+
+# RUN yes | pacman -S unzip
+# RUN yes | curl -fsSL https://deno.land/x/dvm/install.sh | sh
 
 # tools ssh
 RUN yes | pacman -S fzf openssh exa the_silver_searcher fd rsync &&\
@@ -112,8 +121,8 @@ RUN mkdir -p /root/.config; \
     touch /root/.config/.profile; ln -s /root/.config/.profile /root/.profile; \
     touch /root/.config/.gitconfig; ln -s /root/.config/.gitconfig /root/.gitconfig; \
     touch /root/.config/.zsh_history; ln -s /root/.config/.zsh_history /root/.zsh_history; \
-    touch /root/.config/.z; ln -s /root/.config/.z /root/.z; \
-    touch /root/.config/.rvmrc; ln -s /root/.config/.rvmrc /root/.rvmrc; \
+    # touch /root/.config/.z; ln -s /root/.config/.z /root/.z; \
+    # touch /root/.config/.rvmrc; ln -s /root/.config/.rvmrc /root/.rvmrc; \
     touch /root/.config/.bashrc; ln -s /root/.config/.bashrc /root/.bashrc.local; \
     touch /root/.config/.zshrc; ln -s /root/.config/.zshrc /root/.zshrc.local;
 # RUN echo "rvm_silence_path_mismatch_check_flag=1" >> /root/.rvmrc
