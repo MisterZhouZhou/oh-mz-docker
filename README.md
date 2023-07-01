@@ -2,7 +2,7 @@
 参考FrankFang大佬构建的docker linux开发环境
 
 ## 容器功能
-内置 git / vim / python3 / zsh / go / node / yarn / pnpm / deno / rust 等命令
+内置 git / vim / python3 / zsh / go / nvm/ node / yarn / pnpm / dvm / deno / rust 等命令
 给国内用户配置了加速镜像
 
 ## 使用方法
@@ -12,6 +12,12 @@
   # -t 指定镜像名称, .表示Dockerfile所在目录
   docker build -f Dockerfile -t oh-mz-docker-linux .
 ```
+### 镜像发布
+```shell
+  docker tag oh-mz-docker-linux mzlmdocker/oh-mz-docker-linux:0.0.1
+  docker push mzlmdocker/oh-mz-docker-linux:0.0.1
+```
+
 ### 使用示例
 https://github.com/MisterZhouZhou/oh-mz-dev
 
