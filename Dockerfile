@@ -122,7 +122,7 @@ RUN mkdir -p /root/.config; \
     touch /root/.config/.gitconfig; ln -s /root/.config/.gitconfig /root/.gitconfig; \
     touch /root/.config/.zsh_history; ln -s /root/.config/.zsh_history /root/.zsh_history; \
     # touch /root/.config/.z; ln -s /root/.config/.z /root/.z; \
-    touch /root/.config/.rvmrc; ln -s /root/.config/.rvmrc /root/.rvmrc; \
+    # touch /root/.config/.rvmrc; ln -s /root/.config/.rvmrc /root/.rvmrc; \
     touch /root/.config/.bashrc; ln -s /root/.config/.bashrc /root/.bashrc.local; \
     touch /root/.config/.zshrc; ln -s /root/.config/.zshrc /root/.zshrc.local;
 # RUN echo "rvm_silence_path_mismatch_check_flag=1" >> /root/.rvmrc
