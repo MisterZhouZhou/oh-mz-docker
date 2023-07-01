@@ -14,7 +14,11 @@
 ```
 ### 镜像发布
 ```shell
+  # 执行命令，输入用户名，密码
+  docker login docker.io
+  # 镜像打tag
   docker tag oh-mz-docker-linux mzlmdocker/oh-mz-docker-linux:0.0.1
+  # 提交镜像
   docker push mzlmdocker/oh-mz-docker-linux:0.0.1
 ```
 
